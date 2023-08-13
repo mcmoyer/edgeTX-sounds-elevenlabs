@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# vim: set ft=ruby
+#require_relative '../lib/cli
+require 'bundler'
+Bundler.require
+Dotenv.load
+
+Dir["#{File.dirname(__FILE__)}/lib/*.rb"].each {|file| require file }
+class App < Thor
+  package_name "Voice Generator"
+
+  def self.exit_on_failure? = true
+
+  desc "generate", "generate voices with ElevenLabs"
+  method_option :voice_id, required: true
+  method_option :csv, required: true
+  method_option :destination, required: true
+  def generate
+    check_for_api_key
+    PhraseGenerator.new(voice_id: options.voice_id, destination: options.destination, csv: options.csv).process
+  end
+
+  desc "voices", "list all the available voices on ElevenLabs"
+  def voices
+    AvailableVoices.list
+  end
+
+  private
+  def check_for_api_key
+    if ENV['ELEVEN_LABS_API_KEY'].nil?
+      puts "No API key set, make sure to set ELEVEN_LABS_API_KEY in the .env file or before calling the script"
+      exit(1)
+    end
+  end
+end
+
+App.start

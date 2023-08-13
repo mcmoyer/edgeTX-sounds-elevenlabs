@@ -1,0 +1,24 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.3)
+    dotenv (2.8.1)
+    method_source (1.0.0)
+    pry (0.14.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    thor (1.2.2)
+
+PLATFORMS
+  x86_64-darwin-22
+
+DEPENDENCIES
+  dotenv
+  pry
+  thor
+
+RUBY VERSION
+   ruby 3.1.3p185
+
+BUNDLED WITH
+   2.4.7
